@@ -8,7 +8,7 @@ Ext.define('MyApp.view.MyPanel', {
     },
     title: 'Address',
 
-    initComponent: function() {
+    initComponent: function () {
         var me = this;
 
         Ext.applyIf(me, {

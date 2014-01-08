@@ -1,0 +1,32 @@
+<div class="text-center" >
+    <div><input placeholder="Student Name" type="text" class="input-xlarge"
+        ng-model="document.name"></div>
+
+        <div><input type="text" placeholder="Father Name" class="input-xlarge" ng-model="document.fatherName">
+        </div>
+
+
+        <div><input placeholder="Date Of Birth" type="text" class="input-xlarge" datepicker-popup='dd-MMMM-yyyy'
+            is-open="open"
+            ng-model="document.dob" close-text="Close"/></div>
+
+            <div>
+                <div class="btn-group controls">
+                    <button type="button" class="btn form-control" ng-model="document.gender" btn-radio="'Male'">Male</button>
+                    <button type="button" class="btn form-control" ng-model="document.gender" btn-radio="'Female'">Female</button>
+
+
+                </div>
+            </div>
+
+            <div>
+
+            </div>
+
+            <br/>
+            <button class=" btn btn-info" ng-click="save()"> Save & Exit </button>
+            <button class=" btn btn-info" ng-click="save()"> Save & other admission </button>
+            <button class=" btn btn-warning" ng-click="exit()"> Exit without saving</button>
+
+
+        </div>

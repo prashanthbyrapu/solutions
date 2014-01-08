@@ -1,0 +1,20 @@
+<ul class="thumbnails">
+	<div ng-repeat='navigation in navs' >
+		<li class="span3">
+
+			<div class="thumbnail">
+				<div class="caption" style="height:150px">
+					<h4>{{navigation.title}}</h4>
+					<div ng-repeat='item in navigation.details'>
+					
+						<a id="333" ng-href="{{item.link}}">{{item.name}}</a></br>
+					
+
+					</div>
+				</div>
+
+			</div>
+
+		</li>
+	</div>
+</ul>

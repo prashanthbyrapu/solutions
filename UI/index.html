@@ -1,10 +1,84 @@
-<html>
+<!DOCTYPE HTML>
+<html ng-app="home">
+
 <head>
-    <title>Hello Ext</title>
- 
-    <link rel="stylesheet" type="text/css" href="extjs/resources/css/ext-all.css">
-    <script type="text/javascript" src="extjs/ext-debug.js"></script>
-    <script type="text/javascript" src="app5.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular-route.js"></script>
+	<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.7.0.js"></script>
+	<script src="/platform/homepage/controllers/homeController.js"></script>
+	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
 </head>
-<body></body>
+
+
+
+<body>
+	
+	<div class="navbar navbar-fixed-top" ng-controller="homeController">
+		<div class="navbar-inner">
+			<a class="brand" href="#">Me Solutions</a>
+			<nav-DropDown></nav-DropDown>
+			<!--<ul class="nav">
+
+               	<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						Students
+						<b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu" >
+						<li><a href="#newadmission">New Admission</a></li>
+						<li><a href="#students">>Get Students</a></li>
+						<li><a href="#reports">Reports</a></li>
+                        <li><a href="#quickadmission">Quick Admission</a></li>
+					</ul>
+
+				</li>
+
+
+
+				<li class="dropdown">	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					Classes
+					<b class="caret"></b>
+				</a>
+				<ul class="dropdown-menu" >
+					<li><a href="#newadmission">Class Administration</a></li>
+
+				</ul></li>	
+
+				<li class="dropdown">	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					Attendance
+					<b class="caret"></b>
+				</a>
+				<ul class="dropdown-menu" >
+					<li><a href="#newadmission">Mark Attendance</a></li>
+					
+					<li><a href="#newadmission">Get Attendance Reports</a></li>
+				</ul></li>
+
+
+				
+				<li><a href="#systemsetup">System Setup</a></li>
+
+
+				<li class="dropdown">	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					Fee
+					<b class="caret"></b>
+				</a>
+				<ul class="dropdown-menu" >
+					<li><a href="#newadmission">Fee Payment</a></li>
+					
+					<li><a href="#newadmission">Fee Dues Report</a></li>
+				</ul></li>
+
+
+				<li><a href="#communication">Communications</a></li>
+				
+			</ul>-->
+		</div>
+	</div>
+
+</br>
+</br>
+
+<div ng-view>></div>
+</body>
 </html>
