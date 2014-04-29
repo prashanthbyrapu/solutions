@@ -63,8 +63,8 @@ public class Address extends BaseObject {
 
 
 
-	@Reference( collectionName = "AddressType" , fieldName = "externalId")
-	@NotBlank
+	//@Reference( collectionName = "AddressType" , fieldName = "externalId")
+	//@NotBlank
 	private String  addressType;
 
 	

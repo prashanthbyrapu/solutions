@@ -13,6 +13,8 @@ public class QueryInterface {
 
     private List<String> doNotRetreiveFields;
 
+    private boolean retreiveReferencedDocText;
+
     private int limit = 100;
 
     private int page = 0;

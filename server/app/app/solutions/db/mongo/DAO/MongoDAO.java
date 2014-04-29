@@ -91,9 +91,14 @@ public class MongoDAO extends AbstractDAOImpl {
 
     @Override
     public BaseObject get(String id, List<String> fields) {
-        String[] fieldsArray = new String[fields.size()];
-        BaseObject document = (BaseObject) dataStore.find(collectionClass, "_id = ", new ObjectId(id)).retrievedFields(true, fields.toArray(fieldsArray)).get();
-        return document;
+        if( fields == null || fields.size() == 0){
+            return get(id);
+        }else{
+            String[] fieldsArray = new String[fields.size()];
+            BaseObject document = (BaseObject) dataStore.find(collectionClass, "_id = ", new ObjectId(id)).retrievedFields(true, fields.toArray(fieldsArray)).get();
+            return document;
+        }
+
     }
 
     public MongoDAO(String clientId, String collectionName)

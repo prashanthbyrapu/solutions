@@ -39,6 +39,10 @@ public class BaseObject {
         this.id = id;
     }
 
+    public void setId(String id){
+        this.id = new ObjectId(id);
+    }
+
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -86,6 +90,11 @@ public class BaseObject {
 
     public void setClientId(String clientId) {
         this.clientId = clientId;
+    }
+
+
+    public String getText(){
+        throw new IllegalStateException("Method should be overridden by subclass");
     }
 
 }

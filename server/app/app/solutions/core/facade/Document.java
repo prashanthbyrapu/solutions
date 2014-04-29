@@ -7,7 +7,9 @@ import app.solutions.exceptions.NoCollectionException;
 import app.solutions.exceptions.ValidationFailedException;
 import app.solutions.model.BaseObject;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * this is the core facade class to get the data from database..which contains CRUD + custom queries.
@@ -25,12 +27,18 @@ public class Document {
 
     }
 
+
+    public static Map<String,Object> getById(String collectionName, String id, UserContext userContext, boolean retreiveReferencedDocText){
+        Map<String,Object> data = new HashMap<String, Object>();
+        return data;
+    }
+
     /**
      * Get Document by Id
      *
      * @param collectionName
      * @param id
-     * @param clientId
+
      * @return
      */
     public static BaseObject getById(String collectionName, String id, UserContext userContext) throws NoCollectionException {
@@ -46,12 +54,13 @@ public class Document {
 
 
     /**
-     * Get Document by Id
-     *
+     *  Get Document by document Id
      * @param collectionName
-     * @param id
-     * @param clientId
+     * @param id - document id
+     * @param fields - to be retreived
+     * @param userContext
      * @return
+     * @throws NoCollectionException
      */
     public static BaseObject getById(String collectionName, String id, List<String> fields, UserContext userContext) throws NoCollectionException {
 

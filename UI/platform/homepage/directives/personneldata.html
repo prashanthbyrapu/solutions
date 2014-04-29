@@ -1,0 +1,30 @@
+<div>
+
+    <form class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="personName">Name</label>
+
+            <div class="controls">
+                <input type="text" id="personName" placeholder="Name" ng-model="document.name">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="fatherName">Father Name</label>
+
+            <div class="controls">
+                <input type="text" id="fatherName" placeholder="Father Name" ng-model="document.fatherName">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="dob">Date Of Birth</label>
+
+            <div class="controls">
+                <input type="text" class="input-xlarge" datepicker-popup='dd-MMMM-yyyy' id="dob"
+                       placeholder="Date of Birth" ng-model="document.dob">
+            </div>
+        </div>
+
+
+    </form>
+
+</div>

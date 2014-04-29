@@ -1,6 +1,7 @@
 package app.solutions.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import app.solutions.exceptions.NoCollectionException;
 import app.solutions.exceptions.ValidationFailedException;
@@ -13,6 +14,13 @@ import app.solutions.model.BaseObject;
  *
  */
 public interface BaseDAO {
+
+    /**
+     *  Get text of document
+     * @param id
+     * @return
+     */
+    public String getText(String id);
     
     /**
      *  Get By ID
@@ -79,5 +87,24 @@ public interface BaseDAO {
      * @return
      */
     public BaseObject get(String id, List<String> fields);
+
+
+    /**
+     *  Get document field-value pairs by document id
+     * @param id
+     * @param fields
+     * @param retreiveReferencedDocText
+     * @return
+     */
+    public Map<String,Object> get(String id, List<String> fields, boolean retreiveReferencedDocText);
+
+
+    /**
+     *  Get document data..
+     * @param id
+     * @param retreiveReferencedDocText
+     * @return
+     */
+    public Map<String,Object> get(String id, boolean retreiveReferencedDocText);
 
 }

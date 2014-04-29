@@ -1,0 +1,35 @@
+<div>
+    <page-Header title="Class Types Overview"></page-Header>
+    <messages-Div ng-show="showAlertDiv"></messages-Div>
+
+    <div class="text-center">
+        <button class=" btn btn-large btn-default " ng-click="createClassType()">  <i class="fa fa-plus"></i> New Class Type</button>
+
+    </div>
+    </br></br>
+
+    <div class="bs-example">
+        <table class="table">
+            <thead>
+            <tr>
+
+                <th>Class Type</th>
+                <th>Description</th>
+                <th>Max No Of Student</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="classtype in data">
+                <td>{{classtype.externalId}}</td>
+                <td>{{classtype.typeDescription}}</td>
+                <td>{{classtype.maxNoOfStudentsAllowed}}</td>
+                <td><a href="#/e/ClassType/{{classtype.id}}">More Data...</a></td>
+
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+</div>

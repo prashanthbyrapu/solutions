@@ -1,0 +1,66 @@
+<page-Header title="Students Details" subtitle="Click on More Data to see deails of student"></page-Header>
+
+
+<!-- <div class="list-group">
+    <div href="#" ng-repeat="student in data" class="list-group-item active">
+        <strong> {{student.name}}</strong> </br>
+        <i> Father name</i> <strong> {{student.fatherName}}</strong> </br>
+        <i>Born On :</i> <strong> {{student.dob}}</strong>
+
+        <a href="#/e/Student/{{student.id}}">More Data...</a>
+        <hr>
+    </div>
+
+
+</div>-->
+
+<div class="bs-example">
+    <table class="table">
+        <thead>
+        <tr>
+
+            <th>Student Name</th>
+            <th>Father Name</th>
+            <th>DOB</th>
+            <th>Actions..</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="student in data">
+            <td>{{student.name}}</td>
+            <td>{{student.fatherName}}</td>
+            <td>{{student.dob}}</td>
+            <td>
+                <div class="btn-group">
+                    <button class=" btn  btn-default " ng-click="edit(student.id)" title="Edit {{student.name}} Data"><i
+                            class="fa fa-pencil-square-o"></i></button>
+                    <button class=" btn  btn-default " ng-click="fees()"
+                            title="Fee Payments & Dues of {{student.name}}"><i
+                            class="fa fa-inr"></i></button>
+                    <button class=" btn  btn-default " ng-click="attendance()" title="Attendance of {{student.name}}"><i
+                            class="fa fa-check-square-o"></i></button>
+
+                </div>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<!-- <div ng-repeat='student in data' >
+    <li class="span4">
+
+        <div class="thumbnail">
+            <div class="caption" style="height:75px">
+                <h4>{{student.name}}</h4>
+                <i> Father name</i> <strong> {{student.fatherName}}</strong> </br>
+                <i>Born On :</i> <strong> {{student.dob}}</strong>
+
+                <a href="#/e/Student/{{student.id}}">More Data...</a>
+            </div>
+
+        </div>
+
+    </li>
+</div>-->

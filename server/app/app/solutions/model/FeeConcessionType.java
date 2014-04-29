@@ -5,6 +5,6 @@ package app.solutions.model;
  */
 public class FeeConcessionType extends ObjectType {
 
-
+    //Right now there are no fields in this model..
 
 }

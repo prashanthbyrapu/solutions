@@ -1,0 +1,22 @@
+
+
+<page-Header title="School Branches" subtitle="configure branches of your school"></page-Header>
+<form class="form-horizontal">
+    <div class="control-group">
+        <label class="control-label" for="inputEmail">Email</label>
+        <div class="controls">
+            <input type="text" id="inputEmail" placeholder="Email" ng-model="data.ipemail">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="inputPassword">Password</label>
+        <div class="controls">
+            <input type="password" id="inputPassword" placeholder="Password" ng-model="data.pwd">
+        </div>
+    </div>
+
+</form>
+        <address-Details address="data.address" ng-controller="BranchController"></address-Details>
+
+        <button ng-click="save()">Save</button>
+

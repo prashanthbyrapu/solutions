@@ -1,0 +1,60 @@
+<div>
+    <page-Header title="{{title}}" subtitle="{{subtitle}}"></page-Header>
+    <messages-Div ></messages-Div>
+</div>
+
+<div class="text-center">
+    <button class=" btn btn-default btn-large" ng-click="save()"><i class="fa fa-floppy-o"></i> Save</button>
+
+    <button class=" btn btn-default btn-large" ng-click="exit()"><i class="fa fa-sign-out"></i> Exit</button>
+</div>
+<div >
+    </br>
+    </br>
+
+
+    <form class="form-horizontal">
+
+
+        <div class="control-group">
+            <label class="control-label" for="classTypeExtId">Class Type External Id</label>
+
+            <div class="controls">
+                <input type="text" id="classTypeExtId" placeholder="External Id"
+                       ng-model="document.externalId">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="classTypeDescription">Description
+            </label>
+
+            <div class="controls">
+                <input type="text" id="classTypeDescription" placeholder="Class Type Description"
+                       ng-model="document.typeDescription">
+            </div>
+        </div>
+
+
+        <div class="control-group">
+            <label class="control-label" for="maxClassStudents">Max Number Of Students</label>
+
+            <div class="controls">
+                <input type="number" id="maxClassStudents" placeholder="No Of Students"
+                       ng-model="document.maxNoOfStudentsAllowed">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="doNotAllowCheck">No More Students allowed after Max Limit </label>
+
+            <div class="controls">
+                <input type="checkbox" id="doNotAllowCheck"
+                       ng-model="document.notAllowedAfterMaxStudents">
+
+            </div>
+        </div>
+
+
+    </form>
+
+</div>
+</div>

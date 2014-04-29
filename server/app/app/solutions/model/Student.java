@@ -13,7 +13,7 @@ import java.util.Date;
 **/
 
 @Entity
-public class Student {
+public class Student extends  Person{
 
     // Student name
     @NotBlank(message = "Student name is required")
@@ -21,29 +21,29 @@ public class Student {
     private String name;
 
     // Date Of Birth ( Required Field )
-    @NotBlank( message = "Student Date Of Birth is required")
+    //@NotBlank( message = "Student Date Of Birth is required")
     private Date dob;
 
     @NotBlank(message = "Father Name is required")
     private String fatherName;
 
 
-    @NotBlank(message = "Gender is required")
+    //@ExistsInListEntries( value = "Gender")
     private String gender;
 
-    @ExistsInListEntries( value = "Language")
+    //@ExistsInListEntries( value = "Language")
     private String motherTongue;
 
-    @NotBlank( message = "Admission number can not be empty")
+   // @NotBlank( message = "Admission number can not be empty")
     private String admissionNumber;
 
     //  Class specific roll number
     private String rollNumber;
 
-    @ExistsInListEntries(value = "Religion")
+   // @ExistsInListEntries(value = "Religion")
     private String religion;
 
-    @ExistsInListEntries(value = "Reservation")
+    //@ExistsInListEntries(value = "Reservation")
     private String reservation;
 
 

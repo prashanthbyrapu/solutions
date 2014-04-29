@@ -1,0 +1,21 @@
+<div>
+    <page-Header title="Student: {{document.name}}" subtitle=" S/O {{document.fatherName}}"></page-Header>
+
+
+    <messages-Div></messages-Div>
+
+    <div class="text-center">
+        <button class=" btn btn-default btn-large" ng-click="save()"><i class="fa fa-floppy-o"></i> Save</button>
+
+        <button class=" btn btn-default btn-large" ng-click="exit()"><i class="fa fa-sign-out"></i> Exit</button>
+    </div>
+
+    <tabset justified="true">
+        <tab heading="Personnel Information"> <personnel-Details document="document" /></tab>
+        <tab heading="Home Address"> <address-Details address="document.address" /></tab>
+        <tab heading="Fee Concessions">Long Labeled Justified content</tab>
+    </tabset>
+
+
+
+</div>
