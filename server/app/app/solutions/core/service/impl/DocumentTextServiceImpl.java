@@ -2,6 +2,7 @@ package app.solutions.core.service.impl;
 
 import app.solutions.contexts.UserContext;
 import app.solutions.core.service.CacheService;
+import app.solutions.core.service.beans.DocumentTextBean;
 import app.solutions.core.service.metadata.CollectionMetadataService;
 import app.solutions.core.service.DocumentReadService;
 import app.solutions.core.service.DocumentTextService;
@@ -15,6 +16,11 @@ import app.solutions.exceptions.NotFoundInCache;
 import app.solutions.model.BaseObject;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by niveditha on 13/4/14.
@@ -65,5 +71,18 @@ public class DocumentTextServiceImpl implements DocumentTextService {
         }
 
         return documentText;
+    }
+
+    @Override
+    public List<DocumentTextBean> getTexts(String collectionName) throws NoCollectionException {
+        List<BaseObject> documents = readService.getAll(collectionName);
+        List<DocumentTextBean> texts = new ArrayList<DocumentTextBean>();
+        for( BaseObject document: documents){
+           DocumentTextBean bean = new DocumentTextBean();
+            bean.id = document.getId().toString();
+            bean.text = document.getText();
+                   texts.add(bean);
+        }
+        return texts;
     }
 }

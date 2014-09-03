@@ -5,6 +5,7 @@ import app.solutions.core.facade.QueryInterface;
 import app.solutions.core.service.CacheService;
 import app.solutions.core.service.DocumentReadService;
 import app.solutions.core.service.metadata.CollectionMetadataService;
+import app.solutions.core.service.references.ReferenceDocumentService;
 import app.solutions.dao.BaseDAO;
 import app.solutions.dao.factory.DAOFactory;
 import app.solutions.exceptions.CollectionNotCached;
@@ -15,6 +16,8 @@ import app.solutions.model.BaseObject;
 import app.solutions.util.ReflectionUtility;
 import com.google.inject.Inject;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +33,7 @@ public class DocumentReadServiceImpl implements DocumentReadService {
 
     private CacheService cacheService;
 
+    private ReferenceDocumentService referenceDocumentService;
 
     private Object readFromCache(String collectionName, String id) throws NotFoundInCache, CollectionNotCached {
 
@@ -38,10 +42,11 @@ public class DocumentReadServiceImpl implements DocumentReadService {
     }
 
     @Inject
-    public DocumentReadServiceImpl(UserContext userContext, CollectionMetadataService metadataService, CacheService cacheService) {
+    public DocumentReadServiceImpl(UserContext userContext, CollectionMetadataService metadataService, CacheService cacheService, ReferenceDocumentService refService) {
         this.userContext = userContext;
         this.metadataService = metadataService;
         this.cacheService = cacheService;
+        this.referenceDocumentService = refService;
     }
 
 
@@ -69,19 +74,17 @@ public class DocumentReadServiceImpl implements DocumentReadService {
     @Override
     public Map<String, Object> getFieldValuesMapById(String collectionName, String id, List<String> fields) throws NoCollectionException, NoDocumentExists {
 
-        BaseObject document =  byId(collectionName, id, fields);
+        BaseObject document = byId(collectionName, id, fields);
         return ReflectionUtility.getMapOfFieldValues(document);
 
     }
 
     @Override
     public Map<String, Object> getFieldValuesMapById(String collectionName, String id, List<String> fields, boolean readReferenceDocText) throws NoCollectionException, NoDocumentExists {
-        BaseObject document =  byId(collectionName, id, fields);
-        Map<String,Object> result =  ReflectionUtility.getMapOfFieldValues(document);
+        BaseObject document = byId(collectionName, id, fields);
+        Map<String, Object> result = ReflectionUtility.getMapOfFieldValues(document);
 
         // now loop through each field and find out whether they are refering to any other document.
-
-
 
 
         return result;
@@ -90,5 +93,33 @@ public class DocumentReadServiceImpl implements DocumentReadService {
     @Override
     public Map<String, Object> executeQuery(QueryInterface queryInterface) throws NoCollectionException, NoDocumentExists {
         throw new IllegalStateException("NOt yet Supported in the current version API");
+    }
+
+    @Override
+    public List<BaseObject> getAll(String collectionName) throws NoCollectionException {
+        BaseDAO dao = DAOFactory.getDAO(userContext.client, collectionName);
+        return dao.getAll();
+    }
+
+    @Override
+    public List<Map<String, Object>> getAll(String collectionName, List<String> fields, boolean readReferenceText) throws NoCollectionException {
+        BaseDAO dao = DAOFactory.getDAO(userContext.client, collectionName);
+
+        List<BaseObject> result = dao.getAll(fields);
+        List<Map<String,Object>> response = new ArrayList<Map<String,Object>>();
+       for( BaseObject obj: result ){
+            response.add(referenceDocumentService.updateWithDocumentTexts(obj));
+       }
+
+
+        return response;
+    }
+
+    @Override
+    public List<BaseObject> getByFieldValue(String collectionName, String field, Object fieldValue) throws NoCollectionException {
+        BaseDAO dao = DAOFactory.getDAO(userContext.client, collectionName);
+
+        return dao.getByFieldValue(field, fieldValue);
+
     }
 }

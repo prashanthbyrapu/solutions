@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 public class MasterObject extends BaseObject {
 
-    @NotBlank
+   // @NotBlank
     private String externalId;
 
     @NotBlank

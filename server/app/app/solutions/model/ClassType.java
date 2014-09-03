@@ -75,4 +75,9 @@ public class ClassType extends ObjectType {
     public void setCourses(List<String> courses) {
         this.courses = courses;
     }
+
+    @Override
+    public String getText() {
+        return getTypeDescription();
+    }
 }

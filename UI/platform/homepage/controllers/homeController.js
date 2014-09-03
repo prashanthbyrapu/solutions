@@ -1,4 +1,4 @@
-angular.module('home', ['ui.bootstrap', "ngRoute"])
+angular.module('home', ['ui.bootstrap', "ngRoute", 'ngGrid'])
     .controller("homeController", function ($scope, DataService) {
         $scope.studentsNav = [ "New Admission" , "Get Students" , "Reports"];
         $scope.classesNav = ["Classes Administration" ]
@@ -24,6 +24,15 @@ angular.module('home', ['ui.bootstrap', "ngRoute"])
             console.log("In save handler of branch controller");
         }
     })
+    .controller("BaseController", function ($scope, DataService) {
+
+
+        $scope.save = function () {
+
+            console.log($scope.data);
+            console.log("In save handler of branch controller");
+        }
+    })
     .controller("StudentsEditController", function ($scope, $location, $routeParams, DataService) {
         var id = $routeParams.id;
         DataService.get("Student", id).then(function (data) {
@@ -31,10 +40,31 @@ angular.module('home', ['ui.bootstrap', "ngRoute"])
             console.log($scope.data);
         });
 
+        $scope.save = function () {
+            var saveDocument = new DocumentSave("Student", $scope.document, DataService, MessageService, $scope);
+            saveDocument.save();
+
+        };
+
+    })
+
+    .controller("ClassEditController", function ($scope, $location, $routeParams, DataService) {
+        var id = $routeParams.id;
+        DataService.get("SchoolClass", id).then(function (data) {
+            $scope.document = data;
+            console.log($scope.data);
+        });
+
+        $scope.save = function () {
+            var saveDocument = new DocumentSave("SchoolClass", $scope.document, DataService, MessageService, $scope);
+            saveDocument.save();
+
+        };
+
     })
 
     .controller("ClassTypeEditController", function ($scope, $location, $routeParams, DataService, MessageService) {
-console.log("In Class Type edit controller");
+        console.log("In Class Type edit controller");
 
         var id = $routeParams.id;
         DataService.get("ClassType", id).then(function (data) {
@@ -43,37 +73,8 @@ console.log("In Class Type edit controller");
             console.log($scope.data);
         });
         $scope.save = function () {
-            console.log("In save handler students controller");
-            //debugger;
-            DataService.create("ClassType", $scope.document).then(function (data) {
-                //$scope.data = data;
-                $scope.showAlertDiv = true;
-                var messages = new Array();
-                if (data.successMessages) {
-
-                    for (var i = 0; i < data.successMessages.length; i++) {
-                        var message = {};
-                        message.type = "success";
-                        message.message = data.successMessages[i];
-                        messages.push(message);
-                    }
-
-                }
-
-                if (data.errorMessages) {
-                    for (var i = 0; i < data.errorMessages.length; i++) {
-                        var message = {};
-                        message.type = "error";
-                        message.message = data.errorMessages[i];
-                        messages.push(message);
-                    }
-
-                }
-                // if(messages.lengh > 0 ){
-                MessageService.addMessage(messages);
-                // }
-
-            });
+            var saveDocument = new DocumentSave("ClassType", $scope.document, DataService, MessageService, $scope);
+            saveDocument.save();
 
         };
 
@@ -92,91 +93,96 @@ console.log("In Class Type edit controller");
 
     })
 
-    .controller("ClassTypeCreateController", function ($scope, $location, $routeParams, DataService,MessageService) {
+    .controller("ClassTypeCreateController", function ($scope, $location, $routeParams, DataService, MessageService) {
         $scope.title = "Create New Class Type"
         $scope.subtitle = "";
         $scope.save = function () {
             console.log("In save handler students controller");
             //debugger;
-            DataService.create("ClassType", $scope.document).then(function (data) {
-                //$scope.data = data;
-                $scope.showAlertDiv = true;
-                var messages = new Array();
-                if (data.successMessages) {
 
-                    for (var i = 0; i < data.successMessages.length; i++) {
-                        var message = {};
-                        message.type = "success";
-                        message.message = data.successMessages[i];
-                        messages.push(message);
-                    }
-
-                }
-
-                if (data.errorMessages) {
-                    for (var i = 0; i < data.errorMessages.length; i++) {
-                        var message = {};
-                        message.type = "error";
-                        message.message = data.errorMessages[i];
-                        messages.push(message);
-                    }
-
-                }
-                // if(messages.lengh > 0 ){
-                MessageService.addMessage(messages);
-                // }
-
-            });
+            var saveDocument = new DocumentSave("ClassType", $scope.document, DataService, MessageService, $scope);
+            saveDocument.save();
 
         };
 
     })
 
-    .controller("StudentsListController", function ($scope, $location, $routeParams, DataService,MessageService) {
-        var id = $routeParams.id;
-        DataService.getList("Student").then(function (data) {
-            $scope.data = data;
-            console.log($scope.data);oc
-        });
-
-        $scope.edit = function(id){
-            $location.path("/e/Student/" +id)
+    .controller("ClassCreateController", function ($scope, $location, $routeParams, DataService, MessageService) {
+        $scope.title = "New  Class"
+        $scope.subtitle = "";
+        $scope.ClassType = "ClassType";
+        $scope.document = {"feeDetails" :[]};
+        $scope.gridOptions = {
+            data: 'document.feeDetails',
+            enableCellSelection: true,
+            enableRowSelection: false,
+            enableCellEdit: true,
+            columnDefs: [
+                {field: 'feeType', displayName: 'Fee Type', enableCellEdit: true},
+                {field: 'amount', displayName: 'Amount', enableCellEdit: true},
+                {field: 'Actions', displayName:'Actions', cellTemplate: '<button  ng-click="removeRow($index)"><i class="fa fa-trash-o"></i> </buttond>'}
+            ]
+        };
+        $scope.addFee = function () {
+            if(  $scope.document.feeDetails){
+                var feeDetails = { "feeType" : "", "amount" :0};
+                $scope.document.feeDetails.push(feeDetails);
+            }else{
+                $scope.document.feeDetails = new Array();
+                var feeDetails = { "feeType" : "", "amount" :0};
+                $scope.document.feeDetails.push(feeDetails);
+            }
+        };
+        $scope.removeRow = function() {
+            var index = this.row.rowIndex;
+            $scope.gridOptions.selectItem(index, false);
+            $scope.document.feeDetails.splice(index, 1);
         };
 
-    })
-    .controller("QuickAdmissionController", function ($scope, $location, $routeParams, DataService,MessageService) {
         $scope.save = function () {
             console.log("In save handler students controller");
             //debugger;
-            DataService.create("Student", $scope.document).then(function (data) {
-                //$scope.data = data;
-                $scope.showAlertDiv = true;
-                var messages = new Array();
-                if (data.successMessages) {
 
-                    for (var i = 0; i < data.successMessages.length; i++) {
-                        var message = {};
-                        message.type = "success";
-                        message.message = data.successMessages[i];
-                        messages.push(message);
-                    }
+            var saveDocument = new DocumentSave("SchoolClass", $scope.document, DataService, MessageService, $scope);
+            saveDocument.save();
 
-                }
+        };
 
-                if (data.errorMessages) {
-                    for (var i = 0; i < data.errorMessages.length; i++) {
-                        var message = {};
-                        message.type = "error";
-                        message.message = data.errorMessages[i];
-                        messages.push(message);
-                    }
+    })
 
-                }
-                // if(messages.lengh > 0 ){
-                MessageService.addMessage(messages);
-                // }
+    .controller("ClassesListController", function ($scope, $location, $routeParams, DataService, MessageService) {
+        var id = $routeParams.id;
+        DataService.getList("SchoolClass").then(function (data) {
+            $scope.data = data;
+            console.log($scope.data);
 
-            });
+        });
+
+        $scope.edit = function (id) {
+            $location.path("/e/Class/" + id)
+        };
+
+    })
+
+    .controller("StudentsListController", function ($scope, $location, $routeParams, DataService, MessageService) {
+        var id = $routeParams.id;
+        DataService.getList("Student").then(function (data) {
+            $scope.data = data;
+            console.log($scope.data);
+
+        });
+
+        $scope.edit = function (id) {
+            $location.path("/e/Student/" + id)
+        };
+
+    })
+    .controller("QuickAdmissionController", function ($scope, $location, $routeParams, DataService, MessageService) {
+        $scope.save = function () {
+            console.log("In save handler students controller");
+
+            var saveDocument = new DocumentSave("Student", $scope.document, DataService, MessageService, $scope);
+            saveDocument.save();
 
         };
     })
@@ -212,6 +218,27 @@ console.log("In Class Type edit controller");
         };
     })
 
+    .directive('valueHelp', function () {
+
+        return {
+            restrict: 'E',
+            scope: {
+                collectionName: '@',
+                field: "="
+
+            },
+            controller: function ($scope, DataService) {
+                debugger;
+                DataService.valueHelp("ClassType").then(function (data) {
+                    $scope.texts = data;
+                    console.log($scope.texts);
+                });
+
+            },
+            template: '<select ng-model="field" ng-options="obj.id as obj.text for obj in texts"></select>'
+        };
+    })
+
     .directive('pageHeader', function () {
         return {
             restrict: 'E',
@@ -221,6 +248,18 @@ console.log("In Class Type edit controller");
                 subtitle: '@'
             },
             templateUrl: '/platform/homepage/directives/PageHeader.html'
+            //template :"<div class='page-header text-center'><h1>{{title}} <small> {{subTitle}}</small></h1></div>"
+        };
+    })
+    .directive('buttonsDiv', function () {
+        return {
+            restrict: 'E',
+            //controller: "StudentsController",
+            scope: {
+                save: '@',
+                exit: '@'
+            },
+            templateUrl: '/platform/homepage/directives/buttonsDiv.html'
             //template :"<div class='page-header text-center'><h1>{{title}} <small> {{subTitle}}</small></h1></div>"
         };
     })
@@ -243,7 +282,7 @@ console.log("In Class Type edit controller");
                     $scope.messages = null;
                 });
 
-                $scope.close = function(){
+                $scope.close = function () {
                     $scope.showAlertDiv = false;
                 }
 
@@ -311,6 +350,9 @@ console.log("In Class Type edit controller");
                 when('/o/ClassType', {templateUrl: '/modules/classes/partials/classtypeoverview.html', controller: "ClassTypeOverviewController"}).
                 when('/c/ClassType', {templateUrl: '/modules/classes/partials/classtypesetup.html', controller: "ClassTypeCreateController"}).
                 when('/e/ClassType/:id', {templateUrl: '/modules/classes/partials/classtypesetup.html', controller: "ClassTypeEditController"}).
+                when('/o/Class', {templateUrl: '/modules/classes/partials/classesoverview.html', controller: "ClassesListController"}).
+                when('/c/Class', {templateUrl: '/modules/classes/partials/class.html', controller: "ClassCreateController"}).
+                when('/e/Classdd/:id', {templateUrl: '/modules/classes/partials/class.html', controller: "ClassEditController"}).
                 otherwise({redirectTo: '/home'})
 
 
@@ -362,6 +404,16 @@ console.log("In Class Type edit controller");
                 }, function (result) {
                     console.log(result.data);
                     return result.data;
+                });
+            },
+
+            valueHelp: function (collection) {
+                return $http.get('/help/texts/' + collection + "?client=100").then(function (result) {
+                    console.log(result.data);
+                    return result.data;
+                }, function (result) {
+                    //console.log(result.data);
+                    return {};
                 });
             }
         }
@@ -440,6 +492,48 @@ console.log("In Class Type edit controller");
 
         }
     });
-;
 
-;
+function DocumentSave(collection, documentData, DataService, MessageService, $scope) {
+    this.collection = collection;
+    this.documentData = documentData;
+    this.dataService = DataService;
+    this.messageService = MessageService;
+    this.scope = $scope;
+    this.save = function () {
+
+        var documentSave = this;
+        console.log("in save :" + this.collection + ", " + this.documentData);
+        this.dataService.create(this.collection, this.documentData).then(function (data) {
+            //$scope.data = data;
+            documentSave.scope.showAlertDiv = true;
+            var messages = new Array();
+            if (data.successMessages) {
+
+                for (var i = 0; i < data.successMessages.length; i++) {
+                    var message = {};
+                    message.type = "success";
+                    message.message = data.successMessages[i];
+                    messages.push(message);
+                }
+
+            }
+
+            if (data.errorMessages) {
+                for (var i = 0; i < data.errorMessages.length; i++) {
+                    var message = {};
+                    message.type = "error";
+                    message.message = data.errorMessages[i];
+                    messages.push(message);
+                }
+
+            }
+            // if(messages.lengh > 0 ){
+            documentSave.messageService.addMessage(messages);
+            // }
+
+        });
+
+    };
+
+}
+

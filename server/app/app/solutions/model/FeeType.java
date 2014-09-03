@@ -11,10 +11,14 @@ public class FeeType extends ObjectType {
     private String paymentCycle;
 
     // No of days after which parents will be communicated about fee payment reminder
-    private int noOfDaysAfterPaymentCycleStart;
+    private int reminderDays;
 
     @ExistsInListEntries(value ="ParentCommunicationMode")
-    private String communcationMode;
+    private String communicationMode;
+
+    private int feePaymentCycleStartMonth;
+
+    private int feePaymentCycleStartDay;
 
 
 }

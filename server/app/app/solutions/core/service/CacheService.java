@@ -27,8 +27,7 @@ public interface CacheService<K, V> {
 
     /**
      *  update cache.
-     * @param collectionName
-     * @param key
+      * @param key
      * @param value
      */
     public void cachePut( K key, V value);

@@ -21,7 +21,11 @@ public class SchoolClass extends MasterObject {
 
 
     // No of Sections
-    private Integer noOfSections = 0;
+    private Integer noOfSections = 1;
+
+    // Fee Details.
+    private List<ClassFee> feeDetails = new ArrayList<ClassFee>();
+
 
     public String getBranchId() {
         return branchId;
@@ -46,5 +50,18 @@ public class SchoolClass extends MasterObject {
 
     public void setNoOfSections(Integer noOfSections) {
         this.noOfSections = noOfSections;
+    }
+
+    public List<ClassFee> getFeeDetails() {
+        return feeDetails;
+    }
+
+    @Override
+    public String getText() {
+        return getDescription();
+    }
+
+    public void setFeeDetails(List<ClassFee> feeDetails) {
+        this.feeDetails = feeDetails;
     }
 }

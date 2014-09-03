@@ -28,6 +28,14 @@ public interface BaseDAO {
      * @return Collection
      */
     public BaseObject get(String id) ;
+
+
+    /**
+     *  Get all data of current collection
+     * @param fields
+     * @return
+     */
+    public List<BaseObject> getAll(List<String> fields);
     
     
     /**
@@ -77,7 +85,7 @@ public interface BaseDAO {
      * @param value
      * @return
      */
-    public List<BaseObject> getByFieldValue(String fieldName, String value);
+    public List<BaseObject> getByFieldValue(String fieldName, Object value);
 
 
     /**

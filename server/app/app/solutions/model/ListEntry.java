@@ -17,4 +17,22 @@ public class ListEntry extends BaseObject {
     @Length(min = 1, max = 40)
     private String entryDescription;
 
+
+    public String getEntryId() {
+        return entryId;
+    }
+
+    public void setEntryId(String entryId) {
+        this.entryId = entryId;
+    }
+
+    public String getEntryDescription() {
+        return entryDescription;
+    }
+
+    public void setEntryDescription(String entryDescription) {
+        this.entryDescription = entryDescription;
+    }
+
+
 }

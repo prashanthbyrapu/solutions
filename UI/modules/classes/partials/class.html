@@ -1,0 +1,58 @@
+<div>
+    <page-Header title="{{title}}" subtitle="{{subtitle}}"></page-Header>
+    <messages-Div></messages-Div>
+</div>
+
+<div class="text-center">
+    <button class=" btn btn-default btn-large" ng-click="save()"><i class="fa fa-floppy-o"></i> Save</button>
+
+    <button class=" btn btn-default btn-large" ng-click="exit()"><i class="fa fa-sign-out"></i> Exit</button>
+</div>
+<div>
+    </br>
+    </br>
+
+
+    <form class="form-horizontal">
+
+
+        <div class="control-group">
+            <label class="control-label">Class Type</label>
+
+            <div class="controls">
+                <value-Help type="text" id="classTypeExtId" collectionName="ClassType"
+                            field="document.classType"></value-Help>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="classTypeDescription">Description
+            </label>
+
+            <div class="controls">
+                <input type="text" id="classTypeDescription" placeholder="Description"
+                       ng-model="document.description">
+            </div>
+        </div>
+
+
+        <div class="control-group">
+            <label class="control-label" for="noOfSections">Number Of Sections</label>
+
+            <div class="controls">
+                <input type="number" id="noOfSections" placeholder="No Of Sections"
+                       ng-model="document.noOfSections">
+            </div>
+        </div>
+
+
+    </form>
+
+    <div>
+        <h3> Fee Details :</h3> </br>
+        <button class=" btn btn-default" ng-click="addFee()"><i class="fa fa-floppy-o"></i> Add Fee Amount</button>
+        <div style="width: 400px;height: 300px" ng-grid="gridOptions"></div>
+
+    </div>
+
+</div>
+</div>

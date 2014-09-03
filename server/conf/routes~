@@ -13,8 +13,10 @@ GET     /public/                                staticDir:public
 
 # Catch all
 
+GET     /help/texts/{collectionName}                 CoreRESTController.getTexts
+
+GET     /data/{collectionName}                       CoreRESTController.getAll
+PUT     /data/{collectionName}						 CoreRESTController.insert
+GET     /data/{collectionName}/{id}                  CoreRESTController.getById
 
 
-GET     /{collectionName}                       CoreRESTController.getAll
-PUT     /{collectionName}			CoreRESTController.insert
-GET     /{collectionName}/{id}                  CoreRESTController.getById

@@ -59,6 +59,12 @@ public class MongoDAO extends AbstractDAOImpl {
     }
 
     @Override
+    public List<BaseObject> getAll(List<String> fields) {
+        String[] fieldsArray  = new String[fields.size()];
+        return dataStore.find(collectionClass).retrievedFields(true, fields.toArray(fieldsArray)).asList();
+    }
+
+    @Override
     public List<BaseObject> getAll() {
 
         return dataStore.find(collectionClass).asList();
@@ -85,7 +91,7 @@ public class MongoDAO extends AbstractDAOImpl {
     }
 
     @Override
-    public List<BaseObject> getByFieldValue(String fieldName, String value) {
+    public List<BaseObject> getByFieldValue(String fieldName, Object value) {
         return dataStore.find(collectionClass, "fieldName = ", value).asList();
     }
 

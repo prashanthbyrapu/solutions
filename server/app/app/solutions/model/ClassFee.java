@@ -11,16 +11,31 @@ import java.util.Date;
  */
 
 @Embedded
-public class ClassFee {
+public class ClassFee extends  DateEffectiveEmbeddedData{
+
 
     @Reference(collectionName= "FeeType", fieldName="externalId")
     private String feeType;
 
-    @NotNull(message = "Valid from date is required.")
-    private Date validFromDate;
-
     @NotNull( message =" Amount is required")
     private Double amount;
+
+
+    public String getFeeType() {
+        return feeType;
+    }
+
+    public void setFeeType(String feeType) {
+        this.feeType = feeType;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
 
 
 }
